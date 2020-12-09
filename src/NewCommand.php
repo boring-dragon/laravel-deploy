@@ -136,6 +136,13 @@ class NewCommand extends Command
             $this->configureStub( $directory, $name,  $apachedir);
 
             $output->writeln(PHP_EOL.'<info>Apache config done!</info>');
+
+            $output->writeln(PHP_EOL.'<comment>updating windows host file.. few sec..</comment>');
+
+            file_put_contents("C:/Windows/System32/drivers/etc/hosts","\n 127.0.0.1 \t $name.test", FILE_APPEND | LOCK_EX);
+
+            $output->writeln(PHP_EOL.'<info>All done!</info>');
+            $output->writeln(PHP_EOL."<info>Restart apache and you can access your application at $name.test</info>");
         }
 
         return $process->getExitCode();
