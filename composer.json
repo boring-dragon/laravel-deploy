@@ -1,0 +1,22 @@
+{
+    "name": "jinas/laravel-deploy",
+    "description": "Laravel deploy thingy",
+    "license": "MIT",
+    "authors": [{
+        "name": "Mohamed Jinas",
+        "email": "j@live.mv"
+    }],
+    "require": {
+        "symfony/console": "^5.2",
+        "symfony/process": "^5.2",
+        "guzzlehttp/guzzle": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jinas\\LaravelDeploy\\": "src/"
+        }
+    },
+    "bin": [
+        "laravel-deploy"
+    ]
+}

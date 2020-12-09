@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+	DocumentRoot "{DocumentRoot}"
+    ServerName {ServerName}
+	<Directory "{Directory}">
+        AllowOverride all
+        Order Deny,Allow
+        Allow from all
+        Require all granted
+</Directory>
+</VirtualHost>
