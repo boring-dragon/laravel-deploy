@@ -4,7 +4,7 @@ Laravel deploy thingy
 
 ## Steps
 
-- [x] User runs  ``` laravel-deploy new {application name}```
+- [x] User runs  ``` laravel-deploy new {application name} {apachedir}```
 
 Downloads a fresh laravel latest project and extract the zip file and name the file with the application name
 
