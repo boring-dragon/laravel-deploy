@@ -25,7 +25,7 @@ class NewCommand extends Command
             ->setName('new')
             ->setDescription('Create a new Laravel application')
             ->addArgument('name', InputArgument::REQUIRED)
-            ->addArgument('apachedir',InputArgument::REQUIRED)
+            ->addArgument('apachedir', InputArgument::REQUIRED)
             ->addOption('dev', null, InputOption::VALUE_NONE, 'Installs the latest "development" release')
             ->addOption('jet', null, InputOption::VALUE_NONE, 'Installs the Laravel Jetstream scaffolding')
             ->addOption('stack', null, InputOption::VALUE_OPTIONAL, 'The Jetstream stack that should be installed')
@@ -37,8 +37,9 @@ class NewCommand extends Command
     /**
      * Execute the command.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
      * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -73,10 +74,9 @@ class NewCommand extends Command
 
         $directory = $name !== '.' ? getcwd().'/'.$name : '.';
 
-
         $version = $this->getVersion($input);
 
-        if (! $input->getOption('force')) {
+        if (!$input->getOption('force')) {
             $this->verifyApplicationDoesntExist($directory);
         }
 
@@ -133,13 +133,13 @@ class NewCommand extends Command
 
             $apachedir = $input->getArgument('apachedir');
 
-            $this->configureStub( $directory, $name,  $apachedir);
+            $this->configureStub($directory, $name, $apachedir);
 
             $output->writeln(PHP_EOL.'<info>Apache config done!</info>');
 
             $output->writeln(PHP_EOL.'<comment>updating windows host file.. few sec..</comment>');
 
-            file_put_contents("C:/Windows/System32/drivers/etc/hosts","\n 127.0.0.1 \t $name.test", FILE_APPEND | LOCK_EX);
+            file_put_contents('C:/Windows/System32/drivers/etc/hosts', "\n 127.0.0.1 \t $name.test", FILE_APPEND | LOCK_EX);
 
             $output->writeln(PHP_EOL.'<info>All done!</info>');
             $output->writeln(PHP_EOL."<info>Restart apache and you can access your application at $name.test</info>");
@@ -148,30 +148,29 @@ class NewCommand extends Command
         return $process->getExitCode();
     }
 
-    protected function configureStub(string $directory, string $name,string $apachedir)
+    protected function configureStub(string $directory, string $name, string $apachedir)
     {
-        $DocumentRoot = $directory."/public";
-        $ServerName = $name.".test";
-        $file = $apachedir . DIRECTORY_SEPARATOR ."conf" . DIRECTORY_SEPARATOR. "extra". DIRECTORY_SEPARATOR . "httpd-vhosts.conf";
+        $DocumentRoot = $directory.'/public';
+        $ServerName = $name.'.test';
+        $file = $apachedir.DIRECTORY_SEPARATOR.'conf'.DIRECTORY_SEPARATOR.'extra'.DIRECTORY_SEPARATOR.'httpd-vhosts.conf';
         $stub = file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'config.stub');
-        $stub = str_replace("{DocumentRoot}", $DocumentRoot, $stub);
-        $stub = str_replace("{ServerName}", $ServerName, $stub);
-        $stub = str_replace("{Directory}", $directory, $stub);
+        $stub = str_replace('{DocumentRoot}', $DocumentRoot, $stub);
+        $stub = str_replace('{ServerName}', $ServerName, $stub);
+        $stub = str_replace('{Directory}', $directory, $stub);
         $stub .= "\n \n";
 
-
         file_put_contents($file, $stub, FILE_APPEND | LOCK_EX);
-        
     }
 
     /**
      * Install Laravel Jetstream into the application.
      *
-     * @param  string  $directory
-     * @param  string  $stack
-     * @param  bool  $teams
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param string                                            $directory
+     * @param string                                            $stack
+     * @param bool                                              $teams
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
      * @return void
      */
     protected function installJetstream(string $directory, string $stack, bool $teams, InputInterface $input, OutputInterface $output)
@@ -191,8 +190,9 @@ class NewCommand extends Command
     /**
      * Determine the stack for Jetstream.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
      * @return string
      */
     protected function jetstreamStack(InputInterface $input, OutputInterface $output)
@@ -218,7 +218,8 @@ class NewCommand extends Command
     /**
      * Verify that the application does not already exist.
      *
-     * @param  string  $directory
+     * @param string $directory
+     *
      * @return void
      */
     protected function verifyApplicationDoesntExist($directory)
@@ -231,7 +232,8 @@ class NewCommand extends Command
     /**
      * Get the version that should be downloaded.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     *
      * @return string
      */
     protected function getVersion(InputInterface $input)
@@ -262,9 +264,10 @@ class NewCommand extends Command
     /**
      * Run the given commands.
      *
-     * @param  array  $commands
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param array                                             $commands
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
      * @return Process
      */
     protected function runCommands($commands, InputInterface $input, OutputInterface $output)
@@ -309,9 +312,10 @@ class NewCommand extends Command
     /**
      * Replace the given string in the given file.
      *
-     * @param  string  $search
-     * @param  string  $replace
-     * @param  string  $file
+     * @param string $search
+     * @param string $replace
+     * @param string $file
+     *
      * @return string
      */
     protected function replaceInFile(string $search, string $replace, string $file)
